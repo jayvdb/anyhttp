@@ -497,7 +497,6 @@ package_handlers = {
     'http1': urlfetch,
     'reqres': reqres,
     'tinydav': tinydav,
-    'ultralite': ultralite,
     'urlgrabber': urlopen,
     'dogbutler': requests,
     'pylhttp': pylhttp,
@@ -508,13 +507,17 @@ package_handlers = {
     'bolacha': bolacha,
     'drest.request': drest_request,
     'httxlib': httxlib,
-    'dugong': dugong,
 }
 
-if sys.version_info[0] > 2:
-    from . import py3_clients
-    package_handlers['aiohttp'] = py3_clients.aiohttp
-    package_handlers['yieldfrom.http.client'] = py3_clients.yieldfrom
+if sys.version_info[0] == 3:
+    if sys.version_info[1] > 2:
+        package_handlers['dugong'] = dugong
+        package_handlers['ultralite'] = ultralite
+
+        # py33_clients include clients which use py33 feature 'yield from'
+        from . import py33_clients
+        package_handlers['aiohttp'] = py33_clients.aiohttp
+        package_handlers['yieldfrom.http.client'] = py33_clients.yieldfrom
 
 httplib2_derivatives = [
     'tinfoilhat', 'streaming_httplib2', 'bolacha',

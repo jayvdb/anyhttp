@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """HTTP tests."""
+import codecs
 import os
 import sys
 
@@ -23,7 +24,7 @@ https://code.launchpad.net/~jayvdb/testscenarios/0.4-with_scenarios
 
 if sys.version_info[0] > 2:
     basestring = (str, )
-
+    unicode = str
 
 no_redirect_support = set([
     'pycurl', 'fido', 'httq', 'async_http', 'webob', 'urlfetch', 'simplefetch',
@@ -111,6 +112,8 @@ class TestAll(TestBase):
 
     """Set scenarios to include all clients."""
 
+    expected_file = None
+
     scenarios = [(name.replace('.', '_'), {'package': name})
                  for name in anyhttp.known_http_packages]
 
@@ -120,15 +123,24 @@ class TestGetText(TestAll):
 
     """Test all clients for text requests."""
 
+    expected_file = 'utf8.txt'
+
+    @classmethod
+    def setUpClass(cls):
+        with codecs.open(os.path.join(os.path.split(__file__)[0],
+                                      cls.expected_file),
+                         'r', 'utf8') as f:
+            cls.expected_value = f.read()
+
     @property
     def request_url(self):
         return 'http://httpbin.org/encoding/utf8'
 
-    def check_response(self, value):
-        # assertEqual will dump out the long unicode text
-        self.assertTrue(u'[ˈmaʳkʊs kuːn]' in value)
-
     test = TestBase.do_get_text
+
+    def check_response(self, value):
+        # assertEqual will dump out lots of unreadable information
+        self.assertEqual(value, self.expected_value)
 
 
 @with_scenarios()
@@ -136,21 +148,24 @@ class TestGetBin(TestAll):
 
     """Test all clients for binary requests."""
 
+    expected_file = 'pig.png'
+
     @classmethod
     def setUpClass(cls):
-        with open(os.path.join(os.path.split(__file__)[0], 'pig.png'),
+        with open(os.path.join(os.path.split(__file__)[0],
+                               cls.expected_file),
                   'rb') as f:
-            cls.pig = f.read()
+            cls.expected_value = f.read()
 
     @property
     def request_url(self):
         return 'http://httpbin.org/image/png'
 
-    def check_response(self, value):
-        # assertEqual will dump out the binary
-        self.assertTrue(value == self.pig)
-
     test = TestBase.do_get_bin
+
+    def check_response(self, value):
+        # assertEqual will dump out lots of unreadable information
+        self.assertEqual(value, self.expected_value)
 
 
 @with_scenarios()

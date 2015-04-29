@@ -15,6 +15,10 @@ if 'test' in sys.argv and sys.version_info < (2, 7):
 
 from setuptools import setup
 
+# anyhttp.package_handlers contains a dynamically determined list
+# of clients supported on the python version, which is used to create
+# a list of clients to add as dependencies for the tests.
+
 import anyhttp
 
 not_installable_links = {
