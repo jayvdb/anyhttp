@@ -22,9 +22,6 @@ not_installable_links = {
     'simplefetch': 'https://github.com/ownport/simplefetch',
     'pylhttp': 'https://github.com/twistsm/pylhttp',
     'httxlib': 'https://pypi.python.org/pypi/HttxLib',
-
-    # wrong name in setup.py?
-    'basic_http': 'https://github.com/jayvdb/basic_http',
 }
 
 nonpypi_dependency_links = [
@@ -39,11 +36,9 @@ nonpypi_dependency_links = [
 ]
 
 bugfix_dependency_links = [
-    'git+https://github.com/jayvdb/basic_http#egg=basic_http',
+    'git+https://github.com/jayvdb/basic_http@rename-dir#egg=BasicHttp',
     # fix pycurl dependency in setup.py (e879aa8)
     'git+git://yum.baseurl.org/urlgrabber.git#egg=urlgrabber',
-    # https://github.com/ifduyue/urlfetch/issues/40
-    'git+https://github.com/ifduyue/urlfetch#egg=urlfetch',
 ]
 
 dependency_links = []

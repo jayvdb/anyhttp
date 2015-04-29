@@ -316,7 +316,7 @@ class ultralite(MultiuseClass):
 
 class basic_http(SingleSiteClass):
 
-    """Wrapper for basic_http."""
+    """Wrapper for BasicHttp."""
 
     cls = 'BasicHttp'
 
@@ -491,7 +491,7 @@ package_handlers = {
     'httputils': httputils,
     'tornado.httpclient': tornado,
     'ihttp': ihttp,
-    'basic_http': basic_http,
+    'BasicHttp': basic_http,
     'unirest': urlfetch,
     'httpstream': requests,
     'http1': urlfetch,
@@ -538,7 +538,7 @@ py2_http_packages = set([
     'tinfoilhat', 'asynchttp', 'async_http', 'dogbutler', 'ihttp', 'fido',
     'simplefetch', 'httxlib', 'reqres',
     # reason to be determined:
-    'streaming_httplib2', 'bolacha', 'httpclient', 'http1', 'basic_http',
+    'streaming_httplib2', 'bolacha', 'httpclient', 'http1', 'BasicHttp',
     'pylhttp', 'urlgrabber', 'httputils', 'unirest',
 ])
 
