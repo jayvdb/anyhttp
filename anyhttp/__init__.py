@@ -519,6 +519,12 @@ if sys.version_info[0] == 3:
         package_handlers['aiohttp'] = py33_clients.aiohttp
         package_handlers['yieldfrom.http.client'] = py33_clients.yieldfrom
 
+if sys.platform == 'win32':
+    del package_handlers['urlgrabber']
+    del package_handlers['geventhttpclient']
+    if sys.version_info[0] > 2:
+        del package_handlers['dugong']
+
 httplib2_derivatives = [
     'tinfoilhat', 'streaming_httplib2', 'bolacha',
     # jaraco.httplib2 appears to be a completely merged fork

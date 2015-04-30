@@ -1,0 +1,46 @@
+environment:
+
+  global:
+    # SDK v7.0 MSVC Express 2008's SetEnv.cmd script will fail if the
+    # /E:ON and /V:ON options are not enabled in the batch script intepreter
+    # See: http://stackoverflow.com/a/13751649/163740
+    WITH_COMPILER: "cmd /E:ON /V:ON /C run_with_compiler.cmd"
+    CYG_ROOT: C:\\cygwin
+
+  matrix:
+    - PYTHON: "C:\\Python27"
+      PYTHON_VERSION: "2.7.8"
+      PYTHON_ARCH: "32"
+
+    - PYTHON: "C:\\Python33"
+      PYTHON_VERSION: "3.3.5"
+      PYTHON_ARCH: "32"
+
+    - PYTHON: "C:\\Python34"
+      PYTHON_VERSION: "3.4.1"
+      PYTHON_ARCH: "32"
+
+build: off
+os: unstable  # http://help.appveyor.com/discussions/suggestions/427-pre-install-cygwin
+
+init:
+  - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
+
+# pip is used to prepare testtools because otherwise pbr fails during the
+# testscenarios install with 'The filename or extension is too long'.
+install:
+  - ps: (new-object net.webclient).DownloadFile('https://raw.githubusercontent.com/pypa/python-packaging-user-guide/master/source/code/install.ps1', 'install.ps1')
+  - "powershell install.ps1"
+  - ps: (new-object net.webclient).DownloadFile('https://raw.githubusercontent.com/pypa/python-packaging-user-guide/master/source/code/run_with_compiler.cmd', 'run_with_compiler.cmd')
+
+  - "%PYTHON%\\Scripts\\pip.exe install pbr unittest2 testtools cryptography"
+  - ps: (new-object net.webclient).DownloadFile('http://bazaar.launchpad.net/~jayvdb/testscenarios/0.4-with_scenarios/tarball/26?start_revid=26', 'C:\\testscenarios.tgz')
+  - mkdir testscenarios
+  - cd testscenarios
+  - "%CYG_ROOT%\\bin\\tar --strip-components=3 -xzf /cygdrive/c/testscenarios.tgz"
+  - "%PYTHON%\\python setup.py install"
+  - cd ..
+
+test_script:
+  - "%WITH_COMPILER% %PYTHON%\\python setup.py test"
+
