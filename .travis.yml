@@ -6,6 +6,7 @@ python:
   - '3.4'
   - '2.6'
   - '3.2'
+  - 'pypy'
 
 install:
   - python -c "import setuptools; print(setuptools.__version__)"

@@ -68,6 +68,17 @@ else:
         # py27 syntax; http20/frame.py", line 567
         http_packages -= set(['hyper'])
 
+try:
+    sys.pypy_version_info
+except AttributeError:
+    pass
+else:
+    # gevent doesnt compile on Travis-CI
+    # urlgrabber causes 'maximum recursion depth exceeded' while
+    # initialising pycurl, pycurl causes a StackOverflow (pypi and master):
+    # https://github.com/pycurl/pycurl/issues/228
+    http_packages -= set(['geventhttpclient', 'urlgrabber', 'pycurl'])
+
 http_packages -= set(not_installable_links.keys())
 
 if 'TEST_SKIP_PACKAGES' in os.environ:
