@@ -7,10 +7,11 @@ python:
   - '2.6'
   - '3.2'
   - 'pypy'
+  - 'nightly'
 
 install:
   - python -c "import setuptools; print(setuptools.__version__)"
-  - pip install cryptography pyasn1 pyasn1-modules enum34 unittest2
+  - case ${TRAVIS_PYTHON_VERSION} in 2.6|2.7|pypy) pip install cryptography pyasn1 pyasn1-modules unittest2 ;; esac
 
   - mkdir testscenarios
   - cd testscenarios
