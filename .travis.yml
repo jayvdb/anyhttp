@@ -13,12 +13,7 @@ install:
   - python -c "import setuptools; print(setuptools.__version__)"
   - case ${TRAVIS_PYTHON_VERSION} in 2.6|2.7|pypy) pip install cryptography pyasn1 pyasn1-modules unittest2 ;; esac
 
-  - mkdir testscenarios
-  - cd testscenarios
-  - wget -O testscenarios.tgz 'http://bazaar.launchpad.net/~jayvdb/testscenarios/0.4-with_scenarios/tarball/26?start_revid=26'
-  - tar --strip-components=3 -xzf testscenarios.tgz
-  - python setup.py install
-  - cd ..
+  - pip install bzr+lp:~jayvdb/testscenarios/0.4-with_scenarios
 
 script:
   - python setup.py test
