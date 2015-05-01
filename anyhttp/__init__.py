@@ -509,6 +509,8 @@ package_handlers = {
     'httxlib': httxlib,
 }
 
+unsupported_http_packages = set()
+
 if sys.version_info[0] == 3:
     if sys.version_info[1] > 2:
         package_handlers['dugong'] = dugong
@@ -518,12 +520,16 @@ if sys.version_info[0] == 3:
         from . import py33_clients
         package_handlers['aiohttp'] = py33_clients.aiohttp
         package_handlers['yieldfrom.http.client'] = py33_clients.yieldfrom
+else:
+    if sys.version_info < (2, 7):
+        # https://github.com/Lukasa/hyper/issues/130
+        # https://github.com/nigelsmall/httpstream/issues/35
+        # https://github.com/nigelsmall/httq/issues/2
+        unsupported_http_packages |= set(['hyper', 'httpstream', 'httq'])
 
 if sys.platform == 'win32':
-    del package_handlers['urlgrabber']
-    del package_handlers['geventhttpclient']
-    if sys.version_info[0] > 2:
-        del package_handlers['dugong']
+    # urlgrabber uses fcntl; dugong uses package select
+    unsupported_http_packages |= set(['urlgrabber', 'dugong'])
 
 httplib2_derivatives = [
     'tinfoilhat', 'streaming_httplib2', 'bolacha',
@@ -535,8 +541,6 @@ httplib2_derivatives = [
 for package in httplib2_derivatives:
     if package not in package_handlers:
         package_handlers[package] = httplib2
-
-known_http_packages = set(package_handlers.keys())
 
 py2_http_packages = set([
     # bug in deps code:
@@ -551,9 +555,11 @@ py2_http_packages = set([
     'pylhttp', 'urlgrabber', 'httputils', 'unirest',
 ])
 
-py3_http_packages = set([
-    'ultralite', 'dugong', 'yieldfrom.http.client',
-])
+if sys.version_info[0] > 2:
+    unsupported_http_packages |= py2_http_packages
+
+supported_http_packages = (
+    set(package_handlers.keys()) - unsupported_http_packages)
 
 
 def detect_loaded_package():
@@ -561,7 +567,7 @@ def detect_loaded_package():
     global loaded_http_packages
 
     all_packages = set(sys.modules)
-    loaded_http_packages = known_http_packages & set(all_packages)
+    loaded_http_packages = supported_http_packages & set(all_packages)
     if verbose:
         print('loaded', loaded_http_packages)
 

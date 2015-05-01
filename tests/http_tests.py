@@ -62,12 +62,8 @@ class TestBase(testtools.TestCase):
         if name in threading_problems and 'FORCE_TEST' not in os.environ:
             self.skipTest('%s causes threading problems' % name)
 
-        if sys.version_info[0] > 2:
-            if name in anyhttp.py2_http_packages:
-                self.skipTest('%s does not work on > py2' % name)
-        else:
-            if name in anyhttp.py3_http_packages:
-                self.skipTest('%s does not work on < py3' % name)
+        if name in anyhttp.unsupported_http_packages:
+            self.skipTest('%s is not supported on this platform' % name)
 
         try:
             __import__(name)
@@ -77,7 +73,7 @@ class TestBase(testtools.TestCase):
         assert(name in sys.modules)
 
         anyhttp.detect_loaded_package()
-        assert(name in anyhttp.known_http_packages)
+        assert(name in anyhttp.package_handlers.keys())
         self.assertIn(name, anyhttp.loaded_http_packages)
 
     def select_package(self):
@@ -115,7 +111,7 @@ class TestAll(TestBase):
     expected_file = None
 
     scenarios = [(name.replace('.', '_'), {'package': name})
-                 for name in anyhttp.known_http_packages]
+                 for name in anyhttp.package_handlers.keys()]
 
 
 @with_scenarios()

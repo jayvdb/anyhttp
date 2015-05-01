@@ -12,13 +12,25 @@ environment:
       PYTHON_VERSION: "2.7.8"
       PYTHON_ARCH: "32"
 
+    - PYTHON: "C:\\Python27-x64"
+      PYTHON_VERSION: "2.7.8"
+      PYTHON_ARCH: "64"
+
     - PYTHON: "C:\\Python33"
       PYTHON_VERSION: "3.3.5"
       PYTHON_ARCH: "32"
 
+    - PYTHON: "C:\\Python33-x64"
+      PYTHON_VERSION: "3.3.5"
+      PYTHON_ARCH: "64"
+
     - PYTHON: "C:\\Python34"
       PYTHON_VERSION: "3.4.1"
       PYTHON_ARCH: "32"
+
+    - PYTHON: "C:\\Python34-x64"
+      PYTHON_VERSION: "3.4.1"
+      PYTHON_ARCH: "64"
 
 build: off
 os: unstable  # http://help.appveyor.com/discussions/suggestions/427-pre-install-cygwin
@@ -41,6 +53,11 @@ install:
   - "%PYTHON%\\python setup.py install"
   - cd ..
 
+# geventhttpclient fails to build:
+# https://github.com/gwik/geventhttpclient/issues/65
+# On Win64 Appveyor, pip cant install win64 builds of pycurl, and pycurl setup.py
+# cant find curl headers in the build environment.
 test_script:
+  - set TEST_SKIP_PACKAGES=geventhttpclient
+  - "IF %PYTHON_ARCH% equ 64 (set TEST_SKIP_PACKAGES=pycurl urlgrabber geventhttpclient)"
   - "%WITH_COMPILER% %PYTHON%\\python setup.py test"
-

@@ -15,7 +15,7 @@ if 'test' in sys.argv and sys.version_info < (2, 7):
 
 from setuptools import setup
 
-# anyhttp.package_handlers contains a dynamically determined list
+# anyhttp.supported_http_packages contains a dynamically determined list
 # of clients supported on the python version, which is used to create
 # a list of clients to add as dependencies for the tests.
 
@@ -26,6 +26,8 @@ not_installable_links = {
     'simplefetch': 'https://github.com/ownport/simplefetch',
     'pylhttp': 'https://github.com/twistsm/pylhttp',
     'httxlib': 'https://pypi.python.org/pypi/HttxLib',
+    # pypi tarball is broken; setup.py doesnt install code
+    'ultralite': 'https://github.com/cathalgarvey/ultralite',
 }
 
 nonpypi_dependency_links = [
@@ -34,9 +36,6 @@ nonpypi_dependency_links = [
     'git+https://github.com/ownport/simplefetch#egg=simplefetch',
     'git+https://github.com/radix/effreq#egg=effreq',
     'git+https://github.com/mjohnsullivan/reqres#egg=reqres',
-
-    # pypi tarball is broken
-    'git+https://github.com/cathalgarvey/ultralite#egg=ultralite',
 ]
 
 bugfix_dependency_links = [
@@ -54,19 +53,7 @@ dependency_links += bugfix_dependency_links
 http_packages = set(
     [name if name in ['jaraco.httplib2', 'yieldfrom.http.client']
      else name.split('.')[0]
-     for name in anyhttp.package_handlers.keys()])
-
-if sys.version_info[0] > 2:
-    http_packages -= anyhttp.py2_http_packages
-else:
-    http_packages -= anyhttp.py3_http_packages
-    if sys.version_info[1] == 6:
-        # logging.NullHandler is missing in py2.6
-        http_packages -= set(['httpstream'])
-        # syntax error; httq.py, line 46
-        http_packages -= set(['httq'])
-        # py27 syntax; http20/frame.py", line 567
-        http_packages -= set(['hyper'])
+     for name in anyhttp.supported_http_packages])
 
 try:
     sys.pypy_version_info
@@ -84,7 +71,6 @@ http_packages -= set(not_installable_links.keys())
 if 'TEST_SKIP_PACKAGES' in os.environ:
     env_skip_packages = set(os.environ['TEST_SKIP_PACKAGES'].split(' '))
     http_packages -= env_skip_packages
-
 
 test_deps = list(http_packages)
 
