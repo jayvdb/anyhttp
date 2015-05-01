@@ -13,15 +13,10 @@ from warnings import warn
 
 if sys.version_info[0] > 2:
     from urllib.parse import urlparse
-else:
-    from urlparse import urlparse
-
-if sys.version_info[0] > 2:
     basestring = (str, )
     unicode = str
-    type_type = type
 else:
-    type_type = (type, types.ClassType)
+    from urlparse import urlparse
 
 loaded_http_packages = None
 available_http_packages = None
