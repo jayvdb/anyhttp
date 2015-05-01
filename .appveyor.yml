@@ -12,6 +12,10 @@ environment:
       PYTHON_VERSION: "2.6.6"
       PYTHON_ARCH: "32"
 
+    - PYTHON: "C:\\Python26"
+      PYTHON_VERSION: "2.6.6"
+      PYTHON_ARCH: "64"
+
 build: off
 os: unstable  # http://help.appveyor.com/discussions/suggestions/427-pre-install-cygwin
 
