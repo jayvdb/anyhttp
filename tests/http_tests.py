@@ -40,6 +40,8 @@ threading_problems = ['fido', 'asynchttp', 'httxlib']
 
 anyhttp.verbose = False
 
+httpbin_url = 'http://httpbingo.org'
+
 
 class TestBase(testtools.TestCase):
 
@@ -132,10 +134,12 @@ class TestGetText(TestAll):
                                       cls.expected_file),
                          'r', 'utf8') as f:
             cls.expected_value = f.read()
+            if 'httpbingo.org' in httpbin_url:
+                cls.expected_value = cls.expected_value + '\n'
 
     @property
     def request_url(self):
-        return 'http://httpbin.org/encoding/utf8'
+        return httpbin_url + '/encoding/utf8'
 
     test = TestBase.do_get_text
 
@@ -161,7 +165,7 @@ class TestGetBin(TestAll):
 
     @property
     def request_url(self):
-        return 'http://httpbin.org/image/png'
+        return httpbin_url + '/image/png'
 
     test = TestBase.do_get_bin
 
@@ -178,7 +182,7 @@ class TestRedirects(TestAll):
 
     @property
     def request_url(self):
-        return 'http://httpbin.org/absolute-redirect/2'
+        return httpbin_url + '/absolute-redirect/2'
 
     def check_response(self, value):
         if self.package in no_redirect_support:
@@ -186,7 +190,7 @@ class TestRedirects(TestAll):
             self.assertTrue(self.request_url[:-1] + '1' in value)
         else:
             self.assertTrue(value)
-            self.assertTrue('http://httpbin.org/get' in value)
+            self.assertIn(httpbin_url + '/get', value)
             self.assertFalse('If not click the link' in value)
 
     test = TestBase.do_get_text
@@ -199,14 +203,14 @@ class TestRelativeRedirects(TestAll):
 
     @property
     def request_url(self):
-        return 'http://httpbin.org/relative-redirect/2'
+        return httpbin_url + '/relative-redirect/2'
 
     def check_response(self, value):
         if self.package in no_redirect_support:
             self.assertEqual('', value)
         else:
             self.assertTrue(value)
-            self.assertTrue('http://httpbin.org/get' in value)
+            self.assertIn(httpbin_url + '/get', value)
             self.assertFalse('If not click the link' in value)
 
     test = TestBase.do_get_text
