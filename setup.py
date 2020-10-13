@@ -34,7 +34,6 @@ nonpypi_dependency_links = [
     # not on pypi
     'git+https://github.com/twistsm/pylhttp#egg=pylhttp',
     'git+https://github.com/ownport/simplefetch#egg=simplefetch',
-    'git+https://github.com/radix/effreq#egg=effreq',
     'git+https://github.com/mjohnsullivan/reqres#egg=reqres',
 ]
 
