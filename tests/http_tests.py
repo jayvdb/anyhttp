@@ -222,6 +222,16 @@ class TestRelativeRedirects(TestAll):
 
     test = TestBase.do_get_text
 
+
+class TestAbsoluteRedirects(TestRelativeRedirects):
+
+    """Test all clients for absolute redirects."""
+
+    @property
+    def request_url(self):
+        return httpbin_url + '/absolute-redirect/2'
+
+
 if __name__ == '__main__':
     try:
         unittest.main()
