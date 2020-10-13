@@ -136,6 +136,7 @@ class TestGetText(TestAll):
 
     def check_response(self, value):
         # assertEqual will dump out lots of unreadable information
+        self.assertTrue(value)
         self.assertEqual(value, self.expected_value)
 
 
@@ -161,6 +162,7 @@ class TestGetBin(TestAll):
 
     def check_response(self, value):
         # assertEqual will dump out lots of unreadable information
+        self.assertTrue(value)
         self.assertEqual(value, self.expected_value)
 
 
@@ -178,6 +180,7 @@ class TestRedirects(TestAll):
             # remove the '2' from the end of the url and add '1'
             self.assertTrue(self.request_url[:-1] + '1' in value)
         else:
+            self.assertTrue(value)
             self.assertTrue('http://httpbin.org/get' in value)
             self.assertFalse('If not click the link' in value)
 
@@ -197,6 +200,7 @@ class TestRelativeRedirects(TestAll):
         if self.package in no_redirect_support:
             self.assertEqual('', value)
         else:
+            self.assertTrue(value)
             self.assertTrue('http://httpbin.org/get' in value)
             self.assertFalse('If not click the link' in value)
 
