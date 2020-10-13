@@ -52,6 +52,4 @@ install:
 # On Win64 Appveyor, pip cant install win64 builds of pycurl, and pycurl setup.py
 # cant find curl headers in the build environment.
 test_script:
-  - "set TEST_SKIP_PACKAGES=pycurl geventhttpclient"
-  - "IF %TOX_APPVEYOR_X64% equ 1 (set TEST_SKIP_PACKAGES=pycurl urlgrabber geventhttpclient)"
   - "%PYTHON%\\python -m tox -e nocurl"
