@@ -1,7 +1,7 @@
 # -*- coding: utf-8  -*-
 """Setup script for anyhttp."""
 #
-# (C) John Vandenberg, 2015
+# (C) John Vandenberg, 2015-2020
 #
 # Distributed under the terms of the MIT license.
 #
