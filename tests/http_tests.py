@@ -35,6 +35,7 @@ no_redirect_support = set([
 # These two cause the following exception if run as scenario:
 # NotImplementedError: gevent is only usable from a single thread
 threading_problems = ['fido', 'asynchttp', 'httxlib']
+streaming_problems = ['async_http']
 
 anyhttp.verbose = False
 
@@ -85,6 +86,12 @@ class TestBase(testtools.TestCase):
 
     def do_get_text(self):
         self.select_package()
+
+        url = self.request_url
+
+        if self.package in streaming_problems and url.endswith('/utf8'):
+            if 'FORCE_TEST' not in os.environ:
+                self.skipTest('%s causes streaming problems' % self.package)
 
         result = anyhttp.get_text(self.request_url)
 
