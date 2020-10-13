@@ -178,27 +178,6 @@ class TestGetBin(TestAll):
 
 
 @with_scenarios()
-class TestRedirects(TestAll):
-
-    """Test all clients for absolute redirects."""
-
-    @property
-    def request_url(self):
-        return httpbin_url + '/absolute-redirect/2'
-
-    def check_response(self, value):
-        if self.package in no_redirect_support:
-            # remove the '2' from the end of the url and add '1'
-            self.assertTrue(self.request_url[:-1] + '1' in value)
-        else:
-            self.assertTrue(value)
-            self.assertIn(httpbin_url + '/get', value)
-            self.assertFalse('If not click the link' in value)
-
-    test = TestBase.do_get_text
-
-
-@with_scenarios()
 class TestRelativeRedirects(TestAll):
 
     """Test all clients for relative redirects."""
