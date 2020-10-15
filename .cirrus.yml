@@ -17,7 +17,7 @@ Linux_task:
   script:
     - python --version
     - PY=$(python -c 'import sys; print("%d%d" % (sys.version_info[0], sys.version_info[1]))')
-    - python -m tox -e py$PY --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
+    - python -m tox -e py$PY --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
     - bash <(curl -s https://codecov.io/bash)
 
 macOS_task:
@@ -29,7 +29,7 @@ macOS_task:
   script:
     - python3 --version
     - PY=$(python3 -c 'import sys; print("%d%d" % (sys.version_info[0], sys.version_info[1]))')
-    - python3 -m tox -e py$PY --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
+    - python3 -m tox -e py$PY --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
     - bash <(curl -s https://codecov.io/bash)
 
 Windows_task:
