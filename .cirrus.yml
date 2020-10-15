@@ -28,7 +28,8 @@ macOS_task:
     - pip3 install -U tox git+https://github.com/jayvdb/tox-add-factor coverage
   script:
     - python3 --version
-    - python3 -m tox -e py --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
+    - PY=$(python3 -c 'import sys; print("%d%d" % (sys.version_info[0], sys.version_info[1]))')
+    - python3 -m tox -e py$PY --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
     - bash <(curl -s https://codecov.io/bash)
 
 Windows_task:
@@ -40,4 +41,4 @@ Windows_task:
     - C:\Python\python.exe -m pip install -U tox git+https://github.com/jayvdb/tox-add-factor
   script:
     - C:\Python\python.exe --version
-    - C:\Python\python.exe -m tox --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
+    - C:\Python\python.exe -m tox --append-factor nocurl --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
