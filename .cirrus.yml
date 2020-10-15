@@ -17,7 +17,7 @@ Linux_task:
   script:
     - python --version
     - PY=$(python -c 'import sys; print("%d%d" % (sys.version_info[0], sys.version_info[1]))')
-    - python -m tox -e py$PY --prepend-username-factor --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
+    - python -m tox -e py$PY --add-ci-factor --prepend-username-factor --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
 
 macOS_task:
   osx_instance:
@@ -28,7 +28,7 @@ macOS_task:
   script:
     - python3 --version
     - PY=$(python3 -c 'import sys; print("%d%d" % (sys.version_info[0], sys.version_info[1]))')
-    - python3 -m tox -e py$PY --prepend-username-factor --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
+    - python3 -m tox -e py$PY --add-ci-factor --prepend-username-factor --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
 
 Windows_task:
   windows_container:
@@ -39,4 +39,4 @@ Windows_task:
     - C:\Python\python.exe -m pip install -U tox git+https://github.com/jayvdb/tox-add-factor@with-tox-travis
   script:
     - C:\Python\python.exe --version
-    - C:\Python\python.exe -m tox --prepend-username-factor --append-factor nocurl --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
+    - C:\Python\python.exe -m tox --add-ci-factor --prepend-username-factor --append-factor nocurl --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
