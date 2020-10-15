@@ -525,10 +525,6 @@ else:
         # https://github.com/nigelsmall/httq/issues/2
         unsupported_http_packages |= set(['hyper', 'httpstream', 'httq'])
 
-if sys.platform == 'win32':
-    # urlgrabber uses fcntl; dugong uses package select
-    unsupported_http_packages |= set(['urlgrabber', 'dugong'])
-
 httplib2_derivatives = [
     'tinfoilhat', 'streaming_httplib2', 'bolacha',
     # jaraco.httplib2 appears to be a completely merged fork
