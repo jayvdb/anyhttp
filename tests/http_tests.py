@@ -32,6 +32,8 @@ no_redirect_support = set([
     'yieldfrom.http.client',
 ])
 
+# No longer exists on PyPI and SCM deleted
+revoked_packages = ['jaraco.httplib2']
 # These two cause the following exception if run as scenario:
 # NotImplementedError: gevent is only usable from a single thread
 threading_problems = ['fido', 'asynchttp', 'httxlib']
@@ -120,7 +122,10 @@ class TestAll(TestBase):
     expected_file = None
 
     scenarios = [(name.replace('.', '_'), {'package': name})
-                 for name in anyhttp.package_handlers.keys()]
+                 for name in anyhttp.package_handlers.keys()
+                 # Silently ignore packages that cant be tested
+                 if name not in revoked_packages
+                 ]
 
 
 @with_scenarios()
