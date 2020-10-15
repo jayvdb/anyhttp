@@ -4,33 +4,9 @@ environment:
     CYG_ROOT: C:\\cygwin
 
   matrix:
-    - PYTHON: "C:\\Python27"
-      PYTHON_VERSION: "2.7.8"
-      TOX_APPVEYOR_X64: 0
-
-    - PYTHON: "C:\\Python38"
-      PYTHON_VERSION: "3.8"
-      TOX_APPVEYOR_X64: 0
-
-    - PYTHON: "C:\\Python37"
-      PYTHON_VERSION: "3.7"
-      TOX_APPVEYOR_X64: 0
-
     - PYTHON: "C:\\Python36"
       PYTHON_VERSION: "3.6"
       TOX_APPVEYOR_X64: 0
-
-    - PYTHON: "C:\\Python35"
-      PYTHON_VERSION: "3.5"
-      TOX_APPVEYOR_X64: 0
-
-    - PYTHON: "C:\\Python27-x64"
-      PYTHON_VERSION: "2.7.8"
-      TOX_APPVEYOR_X64: 1
-
-    - PYTHON: "C:\\Python38-x64"
-      PYTHON_VERSION: "3.8"
-      TOX_APPVEYOR_X64: 1
 
     - PYTHON: "C:\\Python36-x64"
       PYTHON_VERSION: "3.6"
