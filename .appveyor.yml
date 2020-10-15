@@ -28,4 +28,4 @@ install:
 # On Win64 Appveyor, pip cant install win64 builds of pycurl, and pycurl setup.py
 # cant find curl headers in the build environment.
 test_script:
-  - "%PYTHON%\\python -m tox -vvvv --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor"
+  - "%PYTHON%\\python -m tox --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor"
