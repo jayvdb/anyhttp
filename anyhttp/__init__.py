@@ -70,6 +70,8 @@ class Http(object):
 
     @classmethod
     def _extract_raw(cls, value):
+        if isinstance(value, bytearray):
+            return bytes(value)
         return value
 
 
