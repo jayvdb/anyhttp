@@ -394,7 +394,8 @@ class geventhttpclient(SingleSiteClass):
 
         path = self.get_path(url)
         result = self.http.get(path)
-        return result.read()
+        value = result.read()
+        return self._extract_raw(value)
 
 
 class bolacha(httplib2):
