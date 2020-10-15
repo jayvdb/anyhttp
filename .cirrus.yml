@@ -1,0 +1,43 @@
+# codecov-python has no Cirrus CI support
+# https://github.com/codecov/codecov-python/issues/233
+env:
+  LC_ALL: C.UTF-8
+  LANG: C.UTF-8
+  CODECOV_TOKEN: ENCRYPTED[a503f46aff63363c21705c0ad429c4f6fc8dd64252a192c2baaf4f5f79ef9f5168e95aa457a0bd15a968db034d20c106]
+
+Linux_task:
+  container:
+    matrix:
+      - image: python:2.7
+      - image: python:3.4
+      - image: python:3.5
+      - image: python:3.8
+  install_script:
+    - pip install -U tox git+https://github.com/jayvdb/tox-add-factor coverage
+  script:
+    - python --version
+    - PY=$(python -c 'import sys; print("%d%d" % (sys.version_info[0], sys.version_info[1]))')
+    - python -m tox -e py$PY --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
+    - bash <(curl -s https://codecov.io/bash)
+
+macOS_task:
+  osx_instance:
+    image: mojave-base
+  install_script:
+    - brew install python3
+    - pip3 install -U tox git+https://github.com/jayvdb/tox-add-factor coverage
+  script:
+    - python3 --version
+    - python3 -m tox -e py --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
+    - bash <(curl -s https://codecov.io/bash)
+
+Windows_task:
+  windows_container:
+    os_version: 2019
+    matrix:
+      - image: python:3.8-windowsservercore-1809
+  install_script:
+    - C:\Python\python.exe -m pip install -U tox git+https://github.com/jayvdb/tox-add-factor
+  script:
+    - C:\Python\python.exe --version
+    - C:\Python\python.exe -m tox --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
