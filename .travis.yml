@@ -21,4 +21,4 @@ install:
   - pip install tox-travis git+https://github.com/jayvdb/tox-add-factor@with-tox-travis
 
 script:
-  - tox --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
+  - tox --prepend-username-factor --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
