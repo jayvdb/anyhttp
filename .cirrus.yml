@@ -13,7 +13,7 @@ Linux_task:
       - image: python:3.5
       - image: python:3.8
   install_script:
-    - pip install -U tox git+https://github.com/jayvdb/tox-add-factor@with-tox-travis
+    - pip install -U tox-add-factor
   script:
     - python --version
     - PY=$(python -c 'import sys; print("%d%d" % (sys.version_info[0], sys.version_info[1]))')
@@ -24,7 +24,7 @@ macOS_task:
     image: mojave-base
   install_script:
     - brew install python3
-    - pip3 install -U tox git+https://github.com/jayvdb/tox-add-factor@with-tox-travis
+    - pip3 install -U tox-add-factor
   script:
     - python3 --version
     - PY=$(python3 -c 'import sys; print("%d%d" % (sys.version_info[0], sys.version_info[1]))')
@@ -36,7 +36,7 @@ Windows_task:
     matrix:
       - image: python:3.8-windowsservercore-1809
   install_script:
-    - C:\Python\python.exe -m pip install -U tox git+https://github.com/jayvdb/tox-add-factor@with-tox-travis
+    - C:\Python\python.exe -m pip install -U tox-add-factor
   script:
     - C:\Python\python.exe --version
     - C:\Python\python.exe -m tox --add-ci-factor --prepend-username-factor --append-factor nocurl --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
