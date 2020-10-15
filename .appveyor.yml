@@ -45,11 +45,11 @@ init:
 # pip is used to prepare testtools because otherwise pbr fails during the
 # testscenarios install with 'The filename or extension is too long'.
 install:
-  - "%PYTHON%\\Scripts\\pip.exe install tox tox-appveyor"
+  - "%PYTHON%\\Scripts\\pip.exe install tox tox-appveyor git+https://github.com/jayvdb/tox-add-factor"
 
 # geventhttpclient fails to build:
 # https://github.com/gwik/geventhttpclient/issues/65
 # On Win64 Appveyor, pip cant install win64 builds of pycurl, and pycurl setup.py
 # cant find curl headers in the build environment.
 test_script:
-  - "%PYTHON%\\python -m tox -e nocurl"
+  - "%PYTHON%\\python -m tox --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor"
