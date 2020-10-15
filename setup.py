@@ -47,12 +47,15 @@ dependency_links = []
 dependency_links += nonpypi_dependency_links
 dependency_links += bugfix_dependency_links
 
-# 'jaraco.httplib2' needs to be used as-is, whereas
+# 'jaraco.httplib2' is removed from PyPI
+# 'yieldfrom.http.client' needs to be used as-is, whereas e.g.
 # 'tornado.httpclient' is part of the 'tornado' package
-http_packages = set(
-    [name if name in ['jaraco.httplib2', 'yieldfrom.http.client']
-     else name.split('.')[0]
-     for name in anyhttp.supported_http_packages])
+http_packages = set([
+    name if name in ['yieldfrom.http.client']
+    else name.split('.')[0]
+    for name in anyhttp.supported_http_packages
+    if name not in ['jaraco.httplib2']
+])
 
 try:
     sys.pypy_version_info
