@@ -21,7 +21,7 @@ init:
 # pip is used to prepare testtools because otherwise pbr fails during the
 # testscenarios install with 'The filename or extension is too long'.
 install:
-  - "%PYTHON%\\Scripts\\pip.exe install tox tox-appveyor git+https://github.com/jayvdb/tox-add-factor@with-tox-travis"
+  - "%PYTHON%\\Scripts\\pip.exe install tox tox-appveyor tox-add-factor"
 
 # geventhttpclient fails to build:
 # https://github.com/gwik/geventhttpclient/issues/65
