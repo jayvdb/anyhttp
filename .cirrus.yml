@@ -39,4 +39,4 @@ Windows_task:
     - C:\Python\python.exe -m pip install -U tox-add-factor
   script:
     - C:\Python\python.exe --version
-    - C:\Python\python.exe -m tox --add-ci-factor --prepend-username-factor --append-factor nocurl --append-factor nocurl --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
+    - C:\Python\python.exe -m tox --add-ci-factor --prepend-username-factor --prepend-ostype-factor --prepend-archraw-factor --prepend-cpuarch-factor
