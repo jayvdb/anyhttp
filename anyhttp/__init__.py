@@ -547,7 +547,7 @@ py2_http_packages = set([
     'simplefetch', 'httxlib', 'reqres',
     # reason to be determined:
     'streaming_httplib2', 'bolacha', 'httpclient', 'http1', 'BasicHttp',
-    'pylhttp', 'urlgrabber', 'httputils', 'unirest',
+    'pylhttp', 'httputils', 'unirest',
 ])
 
 if sys.version_info[0] > 2:
