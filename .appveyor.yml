@@ -2,7 +2,6 @@ environment:
 
   global:
     CYG_ROOT: C:\\cygwin
-    PIP_VERBOSE: 1
 
   matrix:
     - PYTHON: "C:\\Python36"
