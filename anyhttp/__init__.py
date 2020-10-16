@@ -230,7 +230,7 @@ class fido(Http):
     def raw(self, url):
         result = self.package.fetch(url)
         try:
-            response = result.wait()
+            response = result.wait(2)
         except AttributeError:
             response = result.result()
         return response.body
