@@ -537,8 +537,6 @@ for package in httplib2_derivatives:
         package_handlers[package] = httplib2
 
 py2_http_packages = set([
-    # bug in package setup:
-    'urllib4.client', 'ourl',
     # bug in package code:
     'tinfoilhat', 'asynchttp', 'async_http', 'dogbutler', 'ihttp', 'fido',
     'simplefetch', 'httxlib', 'reqres',
