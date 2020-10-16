@@ -229,9 +229,11 @@ class fido(Http):
 
     def raw(self, url):
         result = self.package.fetch(url)
-        result = result.result()
-        result = result.body
-        return result
+        try:
+            response = result.wait()
+        except AttributeError:
+            response = result.result()
+        return response.body
 
 
 class async_http(SingleSiteClass):

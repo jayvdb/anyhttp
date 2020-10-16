@@ -36,7 +36,7 @@ no_redirect_support = set([
 revoked_packages = ['jaraco.httplib2']
 # These two cause the following exception if run as scenario:
 # NotImplementedError: gevent is only usable from a single thread
-threading_problems = ['fido', 'asynchttp', 'httxlib']
+threading_problems = ['asynchttp', 'httxlib']
 streaming_problems = ['async_http']
 
 anyhttp.verbose = False
