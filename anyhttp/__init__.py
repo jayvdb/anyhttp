@@ -538,12 +538,17 @@ for package in httplib2_derivatives:
         package_handlers[package] = httplib2
 
 py2_http_packages = set([
-    # bug in package code:
-    'tinfoilhat', 'asynchttp', 'async_http', 'dogbutler', 'ihttp',
+    'async_http',
+    'asynchttp',
+    'BasicHttp',
+    'bolacha',
+    'dogbutler',
     'httputils',  # depends on py2 httplib
-    'httxlib', 'reqres',
-    # reason to be determined:
-    'streaming_httplib2', 'bolacha', 'BasicHttp',
+    'httxlib',
+    'ihttp',
+    'reqres',
+    'streaming_httplib2',
+    'tinfoilhat',
     'unirest',
 ])
 
