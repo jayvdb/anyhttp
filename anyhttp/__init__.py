@@ -540,13 +540,14 @@ for package in httplib2_derivatives:
 py2_http_packages = set([
     # bug in deps code:
     'geventhttpclient',
-    # bug in package setup:
-    'urllib4.client', 'ourl',
     # bug in package code:
     'tinfoilhat', 'asynchttp', 'async_http', 'dogbutler', 'ihttp', 'fido',
     'simplefetch', 'httxlib', 'reqres',
     # reason to be determined:
-    'streaming_httplib2', 'bolacha', 'httpclient', 'http1', 'BasicHttp',
+    'BasicHttp',
+    'bolacha',
+    'http1',
+    'streaming_httplib2',
     'pylhttp', 'urlgrabber', 'httputils', 'unirest',
 ])
 
