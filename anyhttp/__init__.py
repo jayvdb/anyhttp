@@ -23,6 +23,7 @@ available_http_packages = None
 
 http = None
 verbose = False
+timeout = 2
 
 
 class Http(object):
@@ -230,7 +231,7 @@ class fido(Http):
     def raw(self, url):
         result = self.package.fetch(url)
         try:
-            response = result.wait(2)
+            response = result.wait(timeout)
         except AttributeError:
             response = result.result()
         return response.body

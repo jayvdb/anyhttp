@@ -43,6 +43,7 @@ threading_problems = ['asynchttp', 'httxlib']
 streaming_problems = ['async_http']
 
 anyhttp.verbose = False
+anyhttp.timeout = 10
 
 httpbin_url = 'http://httpbingo.org'
 
