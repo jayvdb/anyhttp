@@ -27,7 +27,7 @@ if sys.version_info[0] > 2:
     unicode = str
 
 no_redirect_support = set([
-    'pycurl', 'fido', 'httq', 'async_http', 'webob', 'urlfetch', 'simplefetch',
+    'pycurl', 'fido', 'httq', 'async_http', 'webob', 'urlfetch',
     'httputils', 'tinydav', 'hyper', 'geventhttpclient', 'dugong',
     'yieldfrom.http.client',
 ])
