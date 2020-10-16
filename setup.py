@@ -23,8 +23,6 @@ import anyhttp
 
 not_installable_links = {
     # no setup.py
-    'simplefetch': 'https://github.com/ownport/simplefetch',
-    'pylhttp': 'https://github.com/twistsm/pylhttp',
     'httxlib': 'https://pypi.python.org/pypi/HttxLib',
     # pypi tarball is broken; setup.py doesnt install code
     'ultralite': 'https://github.com/cathalgarvey/ultralite',
@@ -32,8 +30,6 @@ not_installable_links = {
 
 nonpypi_dependency_links = [
     # not on pypi
-    'git+https://github.com/twistsm/pylhttp#egg=pylhttp',
-    'git+https://github.com/ownport/simplefetch#egg=simplefetch',
     'git+https://github.com/mjohnsullivan/reqres#egg=reqres',
 ]
 

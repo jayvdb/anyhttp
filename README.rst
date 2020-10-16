@@ -16,7 +16,6 @@ anyhttp supports:
 * async_http
 * webob
 * urlfetch
-* simplefetch
 * httputils
 * tornado
 * ihttp
@@ -29,7 +28,6 @@ anyhttp supports:
 * ultralite
 * urlgrabber
 * dogbutler
-* pylhttp
 * hyper
 * asynchttp
 * geventhttpclient

@@ -351,17 +351,6 @@ class tinydav(SingleSiteClass):
         return result.content
 
 
-class pylhttp(MultiuseClass):
-
-    """Wrapper for pylhttp."""
-
-    cls = 'Client'
-
-    def raw(self, url):
-        result = self.http.request(url)
-        return result.content
-
-
 class hyper(HostPortConnectionClass):
 
     """Wrapper for hyper."""
@@ -482,7 +471,6 @@ package_handlers = {
     'async_http': async_http,
     'webob': webob,
     'urlfetch': urlfetch,
-    'simplefetch': requests,
     'httputils': httputils,
     'tornado.httpclient': tornado,
     'ihttp': ihttp,
@@ -494,7 +482,6 @@ package_handlers = {
     'tinydav': tinydav,
     'urlgrabber': urlopen,
     'dogbutler': requests,
-    'pylhttp': pylhttp,
     'hyper': hyper,
     'asynchttp': asynchttp,
     'geventhttpclient': geventhttpclient,
@@ -542,13 +529,16 @@ py2_http_packages = set([
     'geventhttpclient',
     # bug in package code:
     'tinfoilhat', 'asynchttp', 'async_http', 'dogbutler', 'ihttp', 'fido',
-    'simplefetch', 'httxlib', 'reqres',
+    'httxlib',
+    'reqres',
     # reason to be determined:
     'BasicHttp',
     'bolacha',
     'http1',
+    'httputils',
     'streaming_httplib2',
-    'pylhttp', 'urlgrabber', 'httputils', 'unirest',
+    'unirest',
+    'urlgrabber',
 ])
 
 if sys.version_info[0] > 2:
