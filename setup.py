@@ -26,20 +26,10 @@ not_installable_links = {
     'httxlib': 'https://pypi.python.org/pypi/HttxLib',
     # pypi tarball is broken; setup.py doesnt install code
     'ultralite': 'https://github.com/cathalgarvey/ultralite',
+    'reqres': 'git+https://github.com/mjohnsullivan/reqres',
+    'httpstream': 'git+https://github.com/jayvdb/httpstream',
+    'BasicHttp': 'git+https://github.com/jayvdb/basic_http',
 }
-
-nonpypi_dependency_links = [
-    # not on pypi
-    'git+https://github.com/mjohnsullivan/reqres#egg=reqres',
-]
-
-bugfix_dependency_links = [
-    'git+https://github.com/jayvdb/basic_http@rename-dir#egg=BasicHttp',
-]
-
-dependency_links = []
-dependency_links += nonpypi_dependency_links
-dependency_links += bugfix_dependency_links
 
 # 'jaraco.httplib2' is removed from PyPI
 # 'yieldfrom.http.client' needs to be used as-is, whereas e.g.
@@ -79,7 +69,6 @@ setup(
     maintainer_email='jayvdb@gmail.com',
     license='MIT License',
     packages=['anyhttp'],
-    dependency_links=dependency_links,
     test_suite="tests",
     tests_require=test_deps,
     classifiers=[
