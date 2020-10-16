@@ -35,8 +35,6 @@ nonpypi_dependency_links = [
 
 bugfix_dependency_links = [
     'git+https://github.com/jayvdb/basic_http@rename-dir#egg=BasicHttp',
-    # fix pycurl dependency in setup.py (e879aa8)
-    'git+git://yum.baseurl.org/urlgrabber.git#egg=urlgrabber',
 ]
 
 dependency_links = []
