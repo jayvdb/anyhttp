@@ -538,11 +538,12 @@ for package in httplib2_derivatives:
 
 py2_http_packages = set([
     # bug in package code:
-    'tinfoilhat', 'asynchttp', 'async_http', 'dogbutler', 'ihttp', 'fido',
-    'simplefetch', 'httxlib', 'reqres',
+    'tinfoilhat', 'asynchttp', 'async_http', 'dogbutler', 'ihttp',
+    'httputils',  # depends on py2 httplib
+    'httxlib', 'reqres',
     # reason to be determined:
-    'streaming_httplib2', 'bolacha', 'httpclient', 'http1', 'BasicHttp',
-    'pylhttp', 'httputils', 'unirest',
+    'streaming_httplib2', 'bolacha', 'BasicHttp',
+    'unirest',
 ])
 
 if sys.version_info[0] > 2:
