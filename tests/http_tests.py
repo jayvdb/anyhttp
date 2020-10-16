@@ -23,8 +23,11 @@ https://code.launchpad.net/~jayvdb/testscenarios/0.4-with_scenarios
 
 
 if sys.version_info[0] > 2:
+    PY3 = True
     basestring = (str, )
     unicode = str
+else:
+    PY3 = False
 
 no_redirect_support = set([
     'pycurl', 'fido', 'httq', 'async_http', 'webob', 'urlfetch',
@@ -61,13 +64,13 @@ class TestBase(testtools.TestCase):
     def check_response(self, value):
         raise RuntimeError('abstract method')
 
-    def _load_package(self):
+    def _load_package(self, force='FORCE_TEST' in os.environ):
         name = self.package  # load name from scenario
 
-        if name in threading_problems and 'FORCE_TEST' not in os.environ:
+        if name in threading_problems and not force:
             self.skipTest('%s causes threading problems' % name)
 
-        if name in anyhttp.unsupported_http_packages:
+        if name in anyhttp.unsupported_http_packages and not force:
             self.skipTest('%s is not supported on this platform' % name)
 
         try:
@@ -75,10 +78,19 @@ class TestBase(testtools.TestCase):
         except ImportError as e:
             self.skipTest('%s could not be imported: %r' % (name, e))
 
-        assert(name in sys.modules)
+        self.assertIn(name, sys.modules)
+
+        added = False
+        if force and name not in anyhttp.supported_http_packages:
+            anyhttp.supported_http_packages.add(name)
+            added = True
 
         anyhttp.detect_loaded_package()
-        assert(name in anyhttp.package_handlers.keys())
+
+        if added:
+            anyhttp.supported_http_packages.remove(name)
+
+        self.assertIn(name, anyhttp.package_handlers.keys())
         self.assertIn(name, anyhttp.loaded_http_packages)
 
     def select_package(self):
@@ -128,10 +140,7 @@ class TestAll(TestBase):
                  ]
 
 
-@with_scenarios()
-class TestGetText(TestAll):
-
-    """Test all clients for text requests."""
+class _TestGetBase(object):
 
     expected_file = 'utf8.txt'
 
@@ -148,12 +157,18 @@ class TestGetText(TestAll):
     def request_url(self):
         return httpbin_url + '/encoding/utf8'
 
-    test = TestBase.do_get_text
-
     def check_response(self, value):
         # assertEqual will dump out lots of unreadable information
         self.assertTrue(value)
         self.assertEqual(value, self.expected_value)
+
+
+@with_scenarios()
+class TestGetText(_TestGetBase, TestAll):
+
+    """Test all clients for text requests."""
+
+    test = TestBase.do_get_text
 
 
 @with_scenarios()
